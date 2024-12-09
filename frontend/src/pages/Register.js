@@ -48,7 +48,10 @@ const Register = () => {
                             value={password}
                         />
                     </div>
-                    <button type="submit" className="btn btn-primary mb-3">Register</button>
+                    <div className="text-center">
+                        <button type="submit" className="btn btn-primary mb-3 w-50">Register</button>
+                    </div>
+
                     {
                         status &&
                         <div className="">
@@ -56,9 +59,12 @@ const Register = () => {
                         </div>
 
                     }
-                    <h6>Already Registered?</h6>
-                    <Link to="/login" className="btn btn-primary mb-3">Login</Link>
                 </form>
+                <div className="text-center">
+                    <h6>Already Registered?</h6>
+                    <Link to="/login" className="btn btn-primary mb-3 w-50">Login</Link>
+                </div>
+
             </div>
         </div>
 

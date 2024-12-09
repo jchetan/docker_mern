@@ -38,6 +38,7 @@ const Login = () => {
                             onChange={(e) => setEmail(e.target.value)}
                             value={email}
                         />
+                        <div className="">Email Error message</div>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="password" className="form-label">Password</label>
@@ -48,8 +49,12 @@ const Login = () => {
                             onChange={(e) => setPassword(e.target.value)}
                             value={password}
                         />
+                        <div className="">Password Error message</div>
                     </div>
-                    <button type="submit" className="btn btn-primary mb-3">Login</button>
+                    <div className="text-center">
+                        <button type="submit" className="btn btn-primary mb-3 w-50">Login</button>
+                    </div>
+
                     {
                         status &&
                         <div className="">
@@ -57,9 +62,14 @@ const Login = () => {
                         </div>
 
                     }
-                    <h6>Not Registered?</h6>
-                    <Link to="/register" className="btn btn-primary mb-3">Register</Link>
                 </form>
+
+                <div className="text-center">
+                    <h6>Not Registered?</h6>
+                    <Link to="/register" className="btn btn-primary mb-3 w-50">Register</Link>
+                </div>
+
+
             </div>
         </div>
 
