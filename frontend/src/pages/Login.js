@@ -5,6 +5,7 @@ import axios from 'axios'
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [status, setStatus] = useState('');
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -13,6 +14,7 @@ const Login = () => {
                 "http://localhost:5000/login",
                 {email, password}
             )
+            setStatus(response.data.status)
             console.log(response)
         } catch (error) {
             console.log(error)
@@ -44,6 +46,13 @@ const Login = () => {
                         />
                     </div>                    
                     <button type="submit" className="btn btn-primary mb-3">Login</button>
+                    {
+                        status &&
+                        <div className="">
+                            {status}
+                        </div>
+                        
+                    }
                     <h6>Not Registered?</h6>
                     <Link to="/register" className="btn btn-primary mb-3">Register</Link>
                 </form>
