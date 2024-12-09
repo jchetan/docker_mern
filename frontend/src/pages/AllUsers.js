@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
 export const AllUsers = () => {
     const [users, setUsers] = useState([]);
@@ -25,13 +25,23 @@ export const AllUsers = () => {
 
     return (
         <div className='container'>
-            {users && users.map((user) => {
+            {(users.length === 0) &&
+                <div className="row justify-content-center" >
+                    <div className="card" style={{ width: "25rem" }}>
+                        <div className="card-body">
+                            <h5 className="card-title">No Users</h5>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            {(users.length !== 0) && users.map((user) => {
                 return (
-                    <div className="row justify-content-center" >
+                    <div key={user._id} className="row justify-content-center" >
                         <div className="card" style={{ width: "25rem" }}>
                             <div className="card-body">
                                 <h5 className="card-title">Email: {user.email}</h5>
-                                <p className="card-text">Password: {user.password}</p>                                
+                                <p className="card-text">Password: {user.password}</p>
                             </div>
                         </div>
                     </div>

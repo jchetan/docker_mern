@@ -63,6 +63,7 @@ app.post(
             } else {
                 console.log(user);
                 if (user.password == password) {
+                    res.cookie.email = user.email;
                     res.status(200).json({ status: 'success', user: user });
                 } else {
                     res.status(200).json({ status: 'wrong password', user: user });
