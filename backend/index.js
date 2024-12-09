@@ -17,25 +17,37 @@ app.get(
     }
 );
 
+app.get(
+    '/fetch_users',
+    async (req, res) => {
+        try {
+            const users = await User.find({});
+            res.status(200).json({status: "success", users: users});
+        } catch (error) {
+            res.status(200).json({ status: error.message });
+        }
+    }
+);
+
 app.post(
     '/register',
     async (req, res) => {
         const { email, password } = req.body;
         try {
-            const user = await User.findOne({email: email})
+            const user = await User.findOne({ email: email })
             if (user) {
                 res.status(200).json({ status: 'user already exists' });
             } else {
                 try {
                     const user = await User.create({ email, password });
-                    res.status(200).json({status: 'success', user: user});
+                    res.status(200).json({ status: 'success', user: user });
                 } catch (error) {
                     res.status(400).json({ status: error.message });
-                }        
+                }
             }
         } catch (error) {
             res.status(400).json({ status: error.message });
-        }        
+        }
     }
 );
 
@@ -45,7 +57,7 @@ app.post(
         const { email, password } = req.body;
 
         try {
-            const user = await User.findOne({email: email})
+            const user = await User.findOne({ email: email })
             if (!user) {
                 res.status(200).json({ status: 'No such user' });
             } else {
@@ -54,7 +66,7 @@ app.post(
                     res.status(200).json({ status: 'success', user: user });
                 } else {
                     res.status(200).json({ status: 'wrong password', user: user });
-                }           
+                }
             }
         } catch (error) {
             res.status(400).json({ status: error.message });
