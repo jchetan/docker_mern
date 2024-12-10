@@ -16,7 +16,9 @@ export const AllUsers = () => {
                     )
                     if (response.data.status === "success") {
                         setUsers(response.data.users)
-                    }  
+                    } else {
+                        alert("Error getting users");
+                    }
                                     
                 } catch (error) {
                     console.log("Error fetchUsers", error)

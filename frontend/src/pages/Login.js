@@ -5,8 +5,7 @@ import axios from 'axios'
 const Login = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    // const [status, setStatus] = useState('');
-
+    
     const navigate = useNavigate();
 
     axios.defaults.withCredentials = true;
@@ -21,7 +20,9 @@ const Login = (props) => {
             if (response.data.status === "success") {
                 props.setLoggedIn(true);
                 navigate('/');
-            }            
+            } else {
+                alert("Error while logging in");
+            }         
         } catch (error) {
             console.log("Login error", error)
         }
@@ -65,8 +66,6 @@ const Login = (props) => {
                     <h6>Not Registered?</h6>
                     <Link to="/register" className="btn btn-primary mb-3 w-50">Register</Link>
                 </div>
-
-
             </div>
         </div>
 

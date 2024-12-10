@@ -1,6 +1,5 @@
 
-const Home = (props) => {
-    
+const Home = (props) => {   
     
     return (
         <div className="row justify-content-center my-2">
@@ -20,7 +19,6 @@ const Home = (props) => {
                 </div>
             }
         </div>
-
     )
 }
 
