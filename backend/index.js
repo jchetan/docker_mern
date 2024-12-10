@@ -16,8 +16,14 @@ app.use(cookieParser())
 app.get(
     '/',
     (req, res) => {
-        res.status(200).json("Hello Chetan");
-
+        const user_email = req.cookies.user_email;
+        console.log("Cookies");
+        console.log(req.cookies);
+        if (!user_email) {
+            res.status(200).json({status: "not_logged_in"});
+        } else {
+            res.status(200).json({status: "logged_in", user_email: user_email});
+        }        
     }
 );
 
@@ -30,6 +36,14 @@ app.get(
         } catch (error) {
             res.status(200).json({ status: error.message });
         }
+    }
+);
+
+app.get(
+    '/logout',
+    (req, res) => {
+        res.clearCookie('user_email');
+        res.status(200).json({ status: 'success' });
     }
 );
 
@@ -67,7 +81,7 @@ app.post(
             } else {
                 console.log(user);
                 if (user.password == password) {
-                    res.cookie('email',user.email);
+                    res.cookie('user_email',user.email);
                     res.status(200).json({ status: 'success', user: user });
                 } else {
                     res.status(200).json({ status: 'wrong password', user: user });

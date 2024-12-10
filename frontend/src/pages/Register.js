@@ -7,6 +7,7 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [registered, setRegistered] = useState(false);
 
+    axios.defaults.withCredentials = true;
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -16,10 +17,9 @@ const Register = () => {
             )
             if (response.data.status === "success") {
                 setRegistered(true);
-            }            
-            console.log(response)
+            }                        
         } catch (error) {
-            console.log(error)
+            console.log("Register error", error)
         }
     }
 

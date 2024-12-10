@@ -1,24 +1,29 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 
-const Login = () => {
+const Login = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [status, setStatus] = useState('');
+    // const [status, setStatus] = useState('');
+
+    const navigate = useNavigate();
 
     axios.defaults.withCredentials = true;
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post(
                 "http://localhost:5000/login",
                 { email, password }
-            )
-            setStatus(response.data.status)
-            console.log(response)
+            )            
+            if (response.data.status === "success") {
+                props.setLoggedIn(true);
+                navigate('/');
+            }            
         } catch (error) {
-            console.log(error)
+            console.log("Login error", error)
         }
     }
 
@@ -53,15 +58,7 @@ const Login = () => {
                     </div>
                     <div className="text-center">
                         <button type="submit" className="btn btn-primary mb-3 w-50">Login</button>
-                    </div>
-
-                    {
-                        status &&
-                        <div className="">
-                            {status}
-                        </div>
-
-                    }
+                    </div>                    
                 </form>
 
                 <div className="text-center">

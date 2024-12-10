@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react'
 export const AllUsers = () => {
     const [users, setUsers] = useState([]);
 
+    axios.defaults.withCredentials = true;
+
     useEffect(
         () => {
             const fetchUsers = async () => {
@@ -12,10 +14,12 @@ export const AllUsers = () => {
                     const response = await axios.get(
                         "http://localhost:5000/fetch_users"
                     )
-                    setUsers(response.data.users)
-                    console.log(response)
+                    if (response.data.status === "success") {
+                        setUsers(response.data.users)
+                    }  
+                                    
                 } catch (error) {
-                    console.log(error)
+                    console.log("Error fetchUsers", error)
                 }
             }
             fetchUsers();
