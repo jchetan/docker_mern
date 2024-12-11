@@ -16,6 +16,7 @@ export const Navbar = (props) => {
                 )
                 if (response.data.status === "success") {
                     props.setLoggedIn(false);
+                    props.setUser("");
                     alert("You have successfully logged out");
                     navigate('/');
                 } else {

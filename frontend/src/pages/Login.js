@@ -28,6 +28,7 @@ const Login = (props) => {
             )
             if (response.data.status === "success") {
                 props.setLoggedIn(true);
+                props.setUser(response.data.user);
                 alert("Login success");
                 navigate('/');
             } else if (response.data.status === "No such user") {
