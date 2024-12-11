@@ -6,10 +6,36 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import AllUsers from "./pages/AllUsers";
 import { Navbar } from "./components/Navbar";
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(
+    () => {
+        const checkLoginStatus = async () => {
+
+            try {
+                const response = await axios.get(
+                    "http://localhost:5000/"
+                )
+                if (response.data.status === "logged_in") {
+                  setLoggedIn(true)
+                } else if (response.data.status === "not_logged_in") {
+                  setLoggedIn(false)
+                } else {
+                  alert("Error getting login status");
+                }
+                                
+            } catch (error) {
+                console.log("Error checkLoginStatus", error)
+            }
+        }
+        checkLoginStatus();
+    },
+    []
+);
 
   return (
     <div className='container'>

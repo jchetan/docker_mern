@@ -5,7 +5,13 @@ import axios from 'axios'
 const Login = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    
+
+    const [showEmailErrorMessage, setShowEmailErrorMessage] = useState(false);
+    const [emailErrorMessage, setEmailErrorMessage] = useState('');
+
+    const [showPasswordErrorMessage, setShowPasswordErrorMessage] = useState(false);
+    const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
+
     const navigate = useNavigate();
 
     axios.defaults.withCredentials = true;
@@ -16,13 +22,17 @@ const Login = (props) => {
             const response = await axios.post(
                 "http://localhost:5000/login",
                 { email, password }
-            )            
+            )
             if (response.data.status === "success") {
                 props.setLoggedIn(true);
                 navigate('/');
+            } else if (response.data.status === "No such user") {
+                alert("User is not registered");
+            } else if (response.data.status === "wrong password") {
+                alert("User exists, but password is wrong");
             } else {
-                alert("Error while logging in");
-            }         
+                alert("Some error while logging in");
+            }
         } catch (error) {
             console.log("Login error", error)
         }
@@ -44,7 +54,11 @@ const Login = (props) => {
                             onChange={(e) => setEmail(e.target.value)}
                             value={email}
                         />
-                        <div className="">Email Error message</div>
+                        {
+                            showEmailErrorMessage &&
+                            <div className="">{emailErrorMessage}</div>
+                        }
+
                     </div>
                     <div className="mb-3">
                         <label htmlFor="password" className="form-label">Password</label>
@@ -55,11 +69,15 @@ const Login = (props) => {
                             onChange={(e) => setPassword(e.target.value)}
                             value={password}
                         />
-                        <div className="">Password Error message</div>
+                        {
+                            showPasswordErrorMessage &&
+                            <div className="">{passwordErrorMessage}</div>
+                        }
+                        
                     </div>
                     <div className="text-center">
                         <button type="submit" className="btn btn-primary mb-3 w-50">Login</button>
-                    </div>                    
+                    </div>
                 </form>
 
                 <div className="text-center">

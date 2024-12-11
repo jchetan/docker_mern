@@ -1,6 +1,7 @@
 
 const Home = (props) => {   
     
+    console.log("props.loggedIn: ", props.loggedIn);
     return (
         <div className="row justify-content-center my-2">
             {props.loggedIn &&

@@ -21,7 +21,7 @@ export const Navbar = (props) => {
                 } else {
                     console.log("Error while logging out")
                     alert("Error while logging out");
-                }                
+                }
             } catch (error) {
                 console.log("Error Logout", error)
             }
@@ -52,9 +52,14 @@ export const Navbar = (props) => {
                             </li>
                         }
 
-                        <li className="nav-item">
-                            <Link className="nav-link active" aria-current="page" to="/register">Register</Link>
-                        </li>
+                        {
+                            !props.loggedIn &&
+                            <li className="nav-item">
+                                <Link className="nav-link active" aria-current="page" to="/register">Register</Link>
+                            </li>
+                        }
+
+
                         <li className="nav-item">
                             <Link className="nav-link active" aria-current="page" to="/all_users">All Users</Link>
                         </li>
